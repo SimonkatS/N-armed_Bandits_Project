@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# --- 1. THE ENVIRONMENT (UPDATED) ---
 class BanditEnvironment:
     def __init__(self, m, n, machine_ranges=None):
         self.m = m # Number of machines
@@ -136,9 +135,8 @@ custom_ranges = [
 ]
 
 print(f"Creating a {M_MACHINES}x{N_ARMS} bandit problem.")
-# --- Initialize Environment and Agents ---
 
-env = BanditEnvironment(M_MACHINES, N_ARMS)                                # ---INTERCHANGE THESE 2 LINES IF YOU DONT/DO WANT CUSTOM RANGES---
+env = BanditEnvironment(M_MACHINES, N_ARMS)          # NTERCHANGE THESE 2 LINES IF YOU DONT/DO WANT CUSTOM RANGES
 # env = BanditEnvironment(M_MACHINES, N_ARMS, machine_ranges=custom_ranges)
 
 print(f"\nTrue reward landscape (mean values):")
@@ -167,10 +165,6 @@ for step in range(TOTAL_STEPS):
     e_greedy_rewards.append(reward)
 
 
-# NOTE: We re-use the *same* environment so the agents face the exact same problem, making it a fair comparison.
-
-
-# --- Run Softmax Simulation ---
 print("Running Softmax Agent...")
 for step in range(TOTAL_STEPS):
     # 1. Agent chooses action
@@ -185,10 +179,8 @@ for step in range(TOTAL_STEPS):
     # 4. Store reward
     softmax_rewards.append(reward)
 
-# --- Results ---
 print("\n--- Simulation Complete ---")
 
-# Find the true best action and its reward
 true_best_flat_index = np.argmax(env.true_rewards)
 true_best_machine, true_best_arm = np.unravel_index(true_best_flat_index, (M_MACHINES, N_ARMS))
 true_best_reward = env.true_rewards[true_best_machine, true_best_arm]
